@@ -5,8 +5,6 @@ export default function Main() {
         <h1>spotify</h1>
 
 
-
-
         <Routes>
             <Route path="/Profile" element={<Profile />} />
 
