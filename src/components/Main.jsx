@@ -7,7 +7,6 @@ export default function Main() {
 
         <Routes>
             <Route path="/Profile" element={<Profile />} />
-
         </Routes>
     </div>
 }
