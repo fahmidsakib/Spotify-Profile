@@ -11,16 +11,16 @@ export default function Profile() {
             <h1>Moinshaikh</h1>
             <div className="followers-div">
                 <div>
-                    <p style={{ color: 'green',fontWeight:'700' }}>0</p>
-                    <p>FOLLOWERS</p>
+                    <p style={{ color: 'rgb(109, 240, 109)',fontWeight:'700' }}>0</p>
+                    <p style={{fontSize:'14px'}}>FOLLOWERS</p>
                 </div>
                 <div>
-                    <p style={{ color: 'green' }}>12</p>
-                    <p>FOLLOWINGS</p>
+                    <p style={{ color: 'rgb(109, 240, 109)' }}>12</p>
+                    <p style={{fontSize:'14px'}}>FOLLOWINGS</p>
                 </div>
                 <div>
-                    <p style={{ color: 'green' }}>3</p>
-                    <p>PLAYLISTS</p>
+                    <p style={{ color: 'rgb(109, 240, 109)' }}>3</p>
+                    <p style={{fontSize:'14px'}}>PLAYLISTS</p>
                 </div>
             </div>
             <button>LOGOUT</button>

@@ -1,5 +1,5 @@
-import Main from "./Main";
-import { useNavigate, Routes, Route, } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { updateUser } from "../Slices/UserSlice";
 import { useDispatch } from "react-redux";
