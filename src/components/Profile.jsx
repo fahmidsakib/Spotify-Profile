@@ -2,25 +2,26 @@ import { useSelector } from "react-redux/es/exports"
 
 export default function Profile() {
     let user = useSelector(state => state.userSlice)
-    console.log(user.name)
+
+    console.log(user.user)
     return <div className="profile-page">
 
         <div className="user-info">
             <div className="user-avatar">
                 <img src="../images/profile2.png" alt="" /></div>
-            <h1>Moinshaikh</h1>
+            <h1>{user.user.name}</h1>
             <div className="followers-div">
                 <div>
-                    <p style={{ color: 'rgb(109, 240, 109)',fontWeight:'700' }}>0</p>
-                    <p style={{fontSize:'14px'}}>FOLLOWERS</p>
+                    <p style={{ color: 'rgb(109, 240, 109)', fontWeight: '700' }}>0</p>
+                    <p style={{ fontSize: '14px' }}>FOLLOWERS</p>
                 </div>
                 <div>
                     <p style={{ color: 'rgb(109, 240, 109)' }}>12</p>
-                    <p style={{fontSize:'14px'}}>FOLLOWINGS</p>
+                    <p style={{ fontSize: '14px' }}>FOLLOWINGS</p>
                 </div>
                 <div>
                     <p style={{ color: 'rgb(109, 240, 109)' }}>3</p>
-                    <p style={{fontSize:'14px'}}>PLAYLISTS</p>
+                    <p style={{ fontSize: '14px' }}>PLAYLISTS</p>
                 </div>
             </div>
             <button>LOGOUT</button>

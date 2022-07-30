@@ -57,15 +57,19 @@ function App() {
     }).then((response) => response.json())
       .then((result) => {
         console.log('Success:', result);
-        getPlaylist()
+        let obj = {}
+        obj.name = result.display_name;
+        obj.followers = result.followers.total
+        obj.img = result.images
+        dispatch(updateUser(obj))
       })
 
   }
+
+
+
+
   getData()
-
-
-
-
 
 
 
@@ -73,8 +77,7 @@ function App() {
     <div className="App">
       <div className="login">
         <h3> Spotify Profile</h3>
-
-        <button onClick={() => { navigate('/Main') }}> <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a></button>
+        <button > <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a></button>
       </div>
 
 

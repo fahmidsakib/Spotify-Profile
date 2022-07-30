@@ -6,9 +6,10 @@ let UserSlice = createSlice({
     reducers: {
         updateUser: (state, action) => {
             state.user = action.payload
+            console.log(state.user, 'yyyyy')
         }
     }
 })
 
 export default UserSlice.reducer
-export const { updateUser  } = UserSlice.actions
+export const { updateUser } = UserSlice.actions
