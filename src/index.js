@@ -20,7 +20,7 @@ root.render(
             <Routes>
                 <Route path="/" element={<App />} />
 
-                <Route path="/Main/*" element={<Main />} />
+                <Route path="*" element={<Main />} />
             </Routes>
         </BrowserRouter >
     </Provider>
