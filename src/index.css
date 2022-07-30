@@ -31,7 +31,7 @@ a {
 }
 
 .login button {
-  padding: 5px;
+  padding: 5px 15px;
   border-radius: 20px;
   background-color: rgb(10, 156, 56);
   color: white;
@@ -262,6 +262,7 @@ a {
   gap: 15px;
   cursor: pointer;
   color: gray;
+  font-size: 14PX;
 }
 
 .filter p:hover {
