@@ -1,10 +1,16 @@
+import { useState } from "react";
+import { useNavigate, Routes, Route } from "react-router-dom";
 import Profile from "./Profile";
 import Artists from "./Artists";
-import { useNavigate, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import TopTracks from "./TopTracks";
+import RecentPlaylist from './RecentPlaylists';
+import MyPlaylists from "./MyPlaylists";
+
 export default function Main() {
+
     let [clicked, setClicked] = useState('profile');
     let navigate = useNavigate()
+
     return <div className="Main-container">
         <div className="side-bar">
             <img src="../spotify.png" alt="" className="logo"/>
@@ -24,21 +30,21 @@ export default function Main() {
                     <p>Top Artists</p>
                 </div>
                 <div className={clicked !== 'track' ? "menu-item" : "menu-item clicked"} onClick={() => {
-                    navigate('/Artists')
+                    navigate('/TopTracks')
                     setClicked('track')
                 }}>
                     <img src="../images/music.png" alt="" style={{ width: "20px" }} />
                     <p>Top Tracks</p>
                 </div>
                 <div className={clicked !== 'recent' ? "menu-item" : "menu-item clicked"} onClick={() => {
-                    navigate('/Artists')
+                    navigate('/RecentPlaylists')
                     setClicked('recent')
                 }}>
                     <img src="../images/recent.png" alt="" />
                     <p>Recent</p>
                 </div>
                 <div className={clicked !== 'playlist' ? "menu-item" : "menu-item clicked"} onClick={() => {
-                    navigate('/Artists')
+                    navigate('/MyPlaylists')
                     setClicked('playlist')
                 }}>
                     <img src="../images/playlist.png" alt="" />
@@ -51,9 +57,11 @@ export default function Main() {
 
 
         <Routes>
-
             <Route path="/Profile" element={<Profile />} />
             <Route path="/Artists" element={<Artists />} />
+            <Route path="/TopTracks" element={<TopTracks />} />
+            <Route path="/RecentPlaylists" element={<RecentPlaylist />} />
+            <Route path="/MyPlaylists" element={<MyPlaylists />} />
         </Routes>
     </div>
 }

@@ -66,9 +66,11 @@ a {
 .git-icon {
   width: 30px;
 }
-.logo{
+
+.logo {
   width: 40px;
 }
+
 .menu {
   width: 100%;
   display: flex;
@@ -298,5 +300,149 @@ a {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+}
 
+
+
+/* Top Tracks */
+
+.tt {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tt .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tt .filter {
+  display: flex;
+  gap: 15px;
+  cursor: pointer;
+  color: gray;
+  font-size: 14PX;
+}
+
+.Selected {
+  color: white;
+  text-decoration: underline;
+}
+
+.topTracks-div {
+  margin-top: 80px;
+  width: 70%;
+}
+
+.ttlist {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.tt-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.tt-img-name img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.tt-song-info {
+  display: flex;
+  margin-top: 15px;
+  align-items: center;
+  gap: 10px;
+}
+
+.tt-img-name{
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 10px;
+}
+
+
+
+
+/* Recent Playlists */
+
+
+.recent {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recent .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.recent-div {
+  margin-top: 80px;
+  width: 70%;
+}
+
+
+/* MyPlaylist */
+
+
+.my-playlists {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.my-playlists .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.myplaylists-div {
+  margin-top: 80px;
+  width: 70%;
+}
+
+.mylist {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.list>img {
+  width: 280px;
+  height: 280px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 280px;
+  margin-top: 20px;
+}
+
+.list-name {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 10px;
 }

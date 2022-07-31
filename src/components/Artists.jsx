@@ -1,13 +1,14 @@
-import { useState } from "react"
+// import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { show } from "../Slices/TopArtists"
+
 export default function Artists() {
     let topArtists = useSelector(state => state.topArtists)
     let selected = topArtists.selected;
     let dispatch = useDispatch();
     let showArr = topArtists.showArr
-    console.log(showArr)
-   
+    // console.log(showArr)
+
     return <div className="Artists-page">
         <div className="artists-div">
             <div className="header">
@@ -29,9 +30,6 @@ export default function Artists() {
                     })
                 }
             </div>
-
-
-
         </div>
     </div >
 }
