@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 function App() {
 
-  const CLIENT_ID = "907c78c7dc024e278baafc9eaaa60c4e"
+  const CLIENT_ID = "8063ebba207d4a1382ae4e548e408158"
   const REDIRECT_URI = "http://localhost:3000/Profile"
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"

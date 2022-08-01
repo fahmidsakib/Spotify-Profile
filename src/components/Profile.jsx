@@ -24,12 +24,12 @@ export default function Profile() {
         getTopTrack(token1, 'short_term', 'FourWeeks')
         getTopTrack(token1, 'medium_term', 'sixMonths')
         getTopTrack(token1, 'long_term', 'allTime')
+        getFollowing(token1)
         getTopArtist(token1)
         recentlyPlayed(token1)
     }, [])
 
     let getPlaylist = (token) => {
-
         fetch("https://api.spotify.com/v1/me/playlists", { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
@@ -44,7 +44,6 @@ export default function Profile() {
                 })
                 dispatch(updateShowArr(arr))
             })
-
     }
 
     let getData = (token) => {
@@ -60,13 +59,21 @@ export default function Profile() {
             })
     }
 
+    let getFollowing = (token) => {
+        fetch("https://api.spotify.com/v1/me/following?type=artist", { headers: { "Authorization": `Bearer ${token}` } })
+            .then((response) => response.json())
+            .then((result) => {
+                console.log('Success:', result);
+            })
+    }
+
 
     let getTopTrack = (token, range, type) => {
         fetch(`https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=${range}`, { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
                 let tt = []
-                console.log('TopTracks:', result.items);
+                // console.log('TopTracks:', result.items);
                 result.items.map(el => {
                     let obj = {}
                     obj.name = el.name
