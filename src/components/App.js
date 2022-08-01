@@ -10,50 +10,51 @@ function App() {
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"
 
-  let dispatch = useDispatch()
-  let navigate = useNavigate()
-  const [token, setToken] = useState();
+  //let dispatch = useDispatch();
+  //let navigate = useNavigate();
+  //const [token, setToken] = useState();
 
-  useEffect(() => {
-    const hash = window.location.hash
-    let token = window.localStorage.getItem("token")
-    if (token && hash) {
-      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
-      window.location.hash = ""
-      window.localStorage.setItem("token", token)
-    }
-    setToken(token)
-    // console.log(token)
-  }, [])
+  // useEffect(() => {
+  //   const hash = window.location.hash
+  //   let token1 = window.localStorage.getItem("token")
+  //   if (token1 && hash) {
+  //     token1 = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+  //     window.location.hash = ""
+  //     window.localStorage.setItem("token", token1)
+  //   }
+  //   setToken(token1)
+  //   getData(token1)
+  // }, [])
 
-  let getPlaylist = () => {
-    console.log(token, 'lll')
-    fetch("https://api.spotify.com/v1/me/playlists", { headers: { "Authorization": `Bearer ${token}` } })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log('Playlist', result);
-        let obj = {}
-        obj.name = result.display_name;
-        obj.followers = result.followers.total
-        obj.img = result.images
-        dispatch(updateUser(obj))
-      })
-  }
+  // let getPlaylist = () => {
+  //   console.log(token, 'lll')
+  //   fetch("https://api.spotify.com/v1/me/playlists", { headers: { "Authorization": `Bearer ${token}` } })
+  //     .then((response) => response.json())
+  //     .then((result) => {
+  //       console.log('Playlist', result);
+  //       let obj = {}
+  //       obj.name = result.display_name;
+  //       obj.followers = result.followers.total
+  //       obj.img = result.images
+  //       dispatch(updateUser(obj))
+  //     })
+  // }
 
-  let getData = () => {
-    fetch("https://api.spotify.com/v1/me", { headers: { "Authorization": `Bearer ${token}` } })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log('Success:', result);
-        let obj = {}
-        obj.name = result.display_name;
-        obj.followers = result.followers.total
-        obj.img = result.images
-        dispatch(updateUser(obj))
-      })
-  }
+  // let getData = (token) => {
+  //   fetch("https://api.spotify.com/v1/me", { headers: { "Authorization": `Bearer ${token}` } })
+  //     .then((response) => response.json())
+  //     .then((result) => {
+  //       console.log('Success:', result);
+  //       let obj = {}
+  //       obj.name = result.display_name;
+  //       // obj.followers = result.followers.total
+  //       obj.img = result.images
+  //       dispatch(updateUser(obj))
+  //       console.log()
+  //     })
+  // }
 
-  getData()
+ 
 
   return (
     <div className="App">

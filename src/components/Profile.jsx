@@ -1,6 +1,81 @@
 import { useSelector } from "react-redux/es/exports"
-
+import { useEffect, useState } from 'react';
+import { updateUser } from "../Slices/UserSlice";
+import { useDispatch } from "react-redux";
+import { updateToken } from "../Slices/UserSlice";
 export default function Profile() {
+    let dispatch = useDispatch();
+
+    useEffect(() => {
+        const hash = window.location.hash
+        let token1 = window.localStorage.getItem("token")
+        if (token1 && hash) {
+            token1 = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+            window.location.hash = ""
+            window.localStorage.setItem("token", token1)
+        }
+        localStorage.setItem('token', JSON.stringify(token1));
+        dispatch(updateToken(token1))
+        getData(token1);
+        getPlaylist(token1);
+        getTopTrack(token1)
+    }, [])
+
+    let getPlaylist = (token) => {
+
+        fetch("https://api.spotify.com/v1/me/playlists", { headers: { "Authorization": `Bearer ${token}` } })
+            .then((response) => response.json())
+            .then((result) => {
+                // let obj = {}
+                // obj.name = result.display_name;
+                // obj.followers = result.followers.total
+                // obj.img = result.images
+                // dispatch(updateUser(obj))
+                // console.log(obj)
+                // console.log(result)
+            })
+
+    }
+
+    let getData = (token) => {
+        fetch("https://api.spotify.com/v1/me", { headers: { "Authorization": `Bearer ${token}` } })
+            .then((response) => response.json())
+            .then((result) => {
+                console.log('Success:', result);
+                let obj = {}
+                obj.image = result.images[0].url
+                obj.name = result.display_name;
+                obj.followers = result.followers.total
+                obj.img = result.images
+                dispatch(updateUser(obj))
+
+            })
+    }
+
+
+    let getTopTrack = (token) => {
+        fetch("https://api.spotify.com/v1/me/top/tracks", { headers: { "Authorization": `Bearer ${token}` } })
+            .then((response) => response.json())
+            .then((result) => {
+                console.log('TopTracks:', result);
+                // let obj = {}
+                // obj.image = result.images[0].url
+                // obj.name = result.display_name;
+                // obj.followers = result.followers.total
+                // obj.img = result.images
+                // dispatch(updateUser(obj))
+
+            })
+    }
+
+
+
+
+
+
+
+
+
     let user = useSelector(state => state.userSlice)
 
     console.log(user.user)
@@ -8,11 +83,11 @@ export default function Profile() {
 
         <div className="user-info">
             <div className="user-avatar">
-                <img src="../images/profile2.png" alt="" /></div>
+                <img src={user.user.image} alt="" /></div>
             <h1>{user.user.name}</h1>
             <div className="followers-div">
                 <div>
-                    <p style={{ color: 'rgb(109, 240, 109)', fontWeight: '700' }}>0</p>
+                    <p style={{ color: 'rgb(109, 240, 109)', fontWeight: '700' }}>{user.user.followers}</p>
                     <p style={{ fontSize: '14px' }}>FOLLOWERS</p>
                 </div>
                 <div>
