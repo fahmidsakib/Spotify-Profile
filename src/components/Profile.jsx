@@ -200,7 +200,7 @@ export default function Profile() {
                     <Link to={`/TopTracks`} className="link"><button> SEE MORE</button></Link>
                 </div>
 
-                <div className="content2">
+                {/* <div className="content2">
                     <div className="song-info">
                         <div>
                             <img src="../images/GullyBoy.jpg" alt="" />
@@ -221,7 +221,7 @@ export default function Profile() {
                             </div>
                         </div>
                         <p style={{ fontSize: '12px', color: 'gray' }}>4:22</p>
-                    </div>
+                    </div> */}
                     {
                         tracks.map((el) => {
                             return <div className="song-info">
