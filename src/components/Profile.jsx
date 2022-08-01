@@ -77,7 +77,7 @@ export default function Profile() {
         fetch("https://api.spotify.com/v1/me/top/artists?limit=20&time_range=long_term", { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
-                console.log('TopTracks:', result);
+                console.log('TopArtist:', result);
                 // let obj = {}
                 // obj.image = result.images[0].url
                 // obj.name = result.display_name;
