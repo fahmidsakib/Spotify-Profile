@@ -40,7 +40,7 @@ let TopArtists = createSlice({
     reducers: {
         updateTAofALlTime: (state, action) => {
             state.TAofAllTime = action.payload
-            state.show=state.TAofAllTime
+            state.show=state.TAofAllTime;
         },
         updateTAofSixMonths: (state, action) => {
             state.TAofSixMonths = action.payload

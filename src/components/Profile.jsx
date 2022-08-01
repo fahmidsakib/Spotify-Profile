@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { updateUser } from "../Slices/UserSlice";
 import { useDispatch } from "react-redux";
 import { updateToken } from "../Slices/UserSlice";
+import { updateShowArr } from "../Slices/MyPlaylists";
 export default function Profile() {
     let dispatch = useDispatch();
 
@@ -27,13 +28,16 @@ export default function Profile() {
         fetch("https://api.spotify.com/v1/me/playlists", { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
-                // let obj = {}
-                // obj.name = result.display_name;
-                // obj.followers = result.followers.total
-                // obj.img = result.images
-                // dispatch(updateUser(obj))
-                // console.log(obj)
-                // console.log(result)
+                console.log('play:', result)
+                let arr = []
+                result.items.map((el) => {
+                    let obj = {}
+                    obj.playlistName = el.name
+                    obj.image = el.images[1].url
+                    obj.totalTracks = el.tracks.total
+                    arr.push(obj)
+                })
+                dispatch(updateShowArr(arr))
             })
 
     }
@@ -84,14 +88,14 @@ export default function Profile() {
 
 
 
-    let {user} = useSelector(state => state.userSlice)
+    let { user } = useSelector(state => state.userSlice)
 
     console.log(user)
     return <div className="profile-page">
 
         <div className="user-info">
             {/* <div className="user-avatar"> */}
-                <img src={user.image} alt="" />
+            <img src={user.image} alt="" />
             {/* </div> */}
             <h1>{user.name}</h1>
             <div className="followers-div">
