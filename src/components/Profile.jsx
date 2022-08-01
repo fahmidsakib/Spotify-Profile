@@ -229,7 +229,7 @@ export default function Profile() {
                                     <img src={el.image} alt="" />
                                     <div >
                                         <p className="song-name">{el.name}</p>
-                                        <p style={{ fontSize: '12px', color: 'gray' }}>{el.artist}</p>
+                                        <p style={{ fontSize: '12px', color: 'gray' }} className="song-name">{el.artist}</p>
                                     </div>
                                 </div>
                                 <p style={{ fontSize: '12px', color: 'gray' }}>{el.duration}</p>

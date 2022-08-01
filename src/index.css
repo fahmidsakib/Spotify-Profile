@@ -129,7 +129,7 @@ a {
 }
 
 .song-name {
-  width: 100%;
+  width: 80%;
   overflow: hidden;
   white-space: nowrap;
   text-align: left;
