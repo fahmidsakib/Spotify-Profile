@@ -200,8 +200,8 @@ export default function Profile() {
                     <Link to={`/TopTracks`} className="link"><button> SEE MORE</button></Link>
                 </div>
 
-                {/* <div className="content2">
-                    <div className="song-info">
+                <div className="content2">
+                    {/* <div className="song-info">
                         <div>
                             <img src="../images/GullyBoy.jpg" alt="" />
                             <div className="song-name">
