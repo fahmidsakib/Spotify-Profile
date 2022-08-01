@@ -228,7 +228,7 @@ export default function Profile() {
                                 <div >
                                     <img src={el.image} alt="" />
                                     <div >
-                                        <p>{el.name}</p>
+                                        <p className="song-name">{el.name}</p>
                                         <p style={{ fontSize: '12px', color: 'gray' }}>{el.artist}</p>
                                     </div>
                                 </div>
