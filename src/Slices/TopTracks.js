@@ -50,8 +50,8 @@ let TopTracks = createSlice({
         show: 'allTime'
     },
     reducers: {
-        updateTTofALlTime: (state, action) => {
-            state.TTofALlTime = action.payload
+        updateTTofAllTime: (state, action) => {
+            state.TTofAllTime = action.payload
         },
         updateTTofSixMonths: (state, action) => {
             state.TTofSixMonths = action.payload
