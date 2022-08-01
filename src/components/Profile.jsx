@@ -67,7 +67,7 @@ export default function Profile() {
             .then((response) => response.json())
             .then((result) => {
                 console.log('Success:', result);
-                dispatch(updateFollowing(result.artists.item.length))
+                dispatch(updateFollowing(result.artists.items.length))
             })
     }
 
