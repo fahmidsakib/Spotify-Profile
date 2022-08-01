@@ -24,8 +24,8 @@ export default function Artists() {
                 {
                     showArr.map((el) => {
                         return <div className="artists-avatar">
-                            <img src={el.img} alt="" />
-                            <p>{el.name}</p>
+                            <img src={el.image} alt="" />
+                            <p>{el.artistName}</p>
                         </div>
                     })
                 }

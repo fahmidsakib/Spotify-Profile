@@ -4,10 +4,16 @@ import { updateUser, updateToken, updateFollowing } from "../Slices/UserSlice";
 import { updateTopTracks } from "../Slices/TopTracks";
 import { useDispatch } from "react-redux";
 import { updateShowArr } from "../Slices/MyPlaylists";
+import { updateTopArtists } from "../Slices/TopArtists";
+import { Link } from "react-router-dom";
 export default function Profile() {
     let { showMyPlaylists } = useSelector(state => state.myPlaylists)
     let { showArr } = useSelector(state => state.topTracks)
     let tracks = showArr.slice(0, 5)
+    let artists = useSelector(state => state.topArtists)
+    console.log(artists, '   ')
+    artists = artists.showArr
+
     let dispatch = useDispatch();
 
     useEffect(() => {
@@ -25,7 +31,7 @@ export default function Profile() {
         getTopTrack(token1, 'short_term', 'FourWeeks')
         getTopTrack(token1, 'medium_term', 'sixMonths')
         getTopTrack(token1, 'long_term', 'allTime')
-        getFollowing(token1)
+        getFollowing(token1, 'allTime')
         // getTopArtist(token1)
         recentlyPlayed(token1)
     }, [])
@@ -60,12 +66,21 @@ export default function Profile() {
             })
     }
 
-    let getFollowing = (token) => {
+    let getFollowing = (token, type) => {
         fetch("https://api.spotify.com/v1/me/following?type=artist", { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
-                console.log('Success:', result);
+                console.log('playlist:', result);
                 dispatch(updateFollowing(result.artists.items.length))
+
+                let artistsArr = []
+                result.artists.items.map((el) => {
+                    let obj = {}
+                    obj.artistName = el.name
+                    obj.image = el.images[0].url
+                    artistsArr.push(obj)
+                })
+                dispatch(updateTopArtists({ arr: artistsArr, save: type }))
             })
     }
 
@@ -158,11 +173,11 @@ export default function Profile() {
             <div className="top-artists">
                 <div className="header">
                     <h4>Top Artists of All Time</h4>
-                    <button>SEE MORE</button>
+                    <Link to={`/Artists`} className="link"><button> SEE MORE</button></Link>
                 </div>
 
                 <div className="content1">
-                    <div>
+                    {/* <div>
                         <img src="../images/AtifAslam.jpg" alt="" />
                         <p>Atif Aslam</p>
                     </div>
@@ -177,7 +192,13 @@ export default function Profile() {
                     <div>
                         <img src="../images/AtifAslam.jpg" alt="" />
                         <p>Rahat Fateh Ali Khan</p>
-                    </div>
+                    </div> */}
+                    {artists.map((el) => {
+                        return <div>
+                            <img src={el.image} alt="" />
+                            <p>{el.artistName}</p>
+                        </div>
+                    })}
 
                 </div>
 
@@ -191,7 +212,7 @@ export default function Profile() {
             <div className="top-tracks">
                 <div className="header2">
                     <h4>Top Tracks of All Time</h4>
-                    <button>SEE MORE</button>
+                    <Link to={`/TopTracks`} className="link"><button> SEE MORE</button></Link>
                 </div>
 
                 <div className="content2">
@@ -217,10 +238,10 @@ export default function Profile() {
                     </div> */}
                     {
                         tracks.map((el) => {
-                            return <div  className="song-info">
-                               
+                            return <div className="song-info">
+
                                 <div >
-                                <img src={el.image} alt="" />
+                                    <img src={el.image} alt="" />
                                     <div >
                                         <p>{el.name}</p>
                                         <p style={{ fontSize: '12px', color: 'gray' }}>{el.artist}</p>
@@ -237,5 +258,5 @@ export default function Profile() {
             </div>
         </div>
 
-    </div>
+    </div >
 }
