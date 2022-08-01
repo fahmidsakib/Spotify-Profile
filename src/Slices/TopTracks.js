@@ -13,20 +13,16 @@ let TopTracks = createSlice({
         updateTopTracks: (state, action) => {
             if (action.payload.save === 'allTime') {
                 state.TTofAllTime = action.payload.arr
-                
-                console.log(state.TTofAllTime)
+                state.showArr = action.payload.arr
             }
             if (action.payload.save === 'sixMonth') {
                 state.TTofSixMonths = action.payload.arr
-                console.log(state.TTofSixMonths)
             }
             if (action.payload.save === 'FourWeeks') {
                 state.TTofFourWeeks = action.payload.arr
-                console.log(state.TTofFourWeeks)
             }
         },
         show: (state, action) => {
-            console.log(action.payload)
             state.selected = action.payload
             if (state.selected === 'allTime') {
                 state.showArr = state.TTofAllTime;
