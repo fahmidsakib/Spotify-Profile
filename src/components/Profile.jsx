@@ -8,9 +8,7 @@ import { updateShowArr } from "../Slices/MyPlaylists";
 export default function Profile() {
     let { showMyPlaylists } = useSelector(state => state.myPlaylists)
     let { showArr } = useSelector(state => state.topTracks)
-    console.log(showArr)
     let tracks = showArr.slice(0, 5)
-    console.log(tracks,'dskfsfsfj')
     let dispatch = useDispatch();
 
     useEffect(() => {
@@ -67,7 +65,7 @@ export default function Profile() {
         fetch("https://api.spotify.com/v1/me/following?type=artist", { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
-                console.log('Success:', result);
+                console.log('follow:', result);
             })
     }
 
@@ -219,9 +217,10 @@ export default function Profile() {
                     </div> */}
                     {
                         tracks.map((el) => {
-                            <div >
+                            return <div  className="song-info">
+                               
                                 <div >
-                                    <img src={el.image} alt="" />
+                                <img src={el.image} alt="" />
                                     <div >
                                         <p>{el.name}</p>
                                         <p style={{ fontSize: '12px', color: 'gray' }}>{el.artist}</p>

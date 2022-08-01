@@ -38,15 +38,17 @@ let TopArtists = createSlice({
 
     },
     reducers: {
-        updateTAofALlTime: (state, action) => {
-            state.TAofAllTime = action.payload
-            state.show=state.TAofAllTime;
-        },
-        updateTAofSixMonths: (state, action) => {
-            state.TAofSixMonths = action.payload
-        },
-        updateTAofFourWeeks: (state, action) => {
-            state.TAofFourWeeks = action.payload
+        updateTopTracks: (state, action) => {
+            if (action.payload.save === 'allTime') {
+                state.TTofAllTime = action.payload.arr
+                state.showArr = action.payload.arr
+            }
+            if (action.payload.save === 'sixMonth') {
+                state.TTofSixMonths = action.payload.arr
+            }
+            if (action.payload.save === 'FourWeeks') {
+                state.TTofFourWeeks = action.payload.arr
+            }
         },
         show: (state, action) => {
             console.log(action.payload)
