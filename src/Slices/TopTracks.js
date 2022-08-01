@@ -3,61 +3,26 @@ import { createSlice } from "@reduxjs/toolkit";
 let TopTracks = createSlice({
     name: 'topTracks-slice',
     initialState: {
-        TTofAllTime: [
-            {
-                name: "Sher Aaya Sher",
-                img: "../images/GullyBoy.jpg",
-                info: 'DIVINE, Major C. Gully Boy',
-                duration: '2:14'
-            },
-            {
-                name: "Castle on the hill",
-                img: "../images/GullyBoy.jpg",
-                info: 'Castle on the hill. Castle on the hill',
-                duration: '4:22'
-            },
-        ],
-        TTofSixMonths: [
-            {
-                name: "Sher Aaya Sher",
-                img: "../images/GullyBoy.jpg",
-                info: 'DIVINE, Major C. Gully Boy',
-                duration: '2:14'
-            },
-        ],
-        TTofFourWeeks: [
-            {
-                name: "Castle on the hill",
-                img: "../images/GullyBoy.jpg",
-                info: 'Castle on the hill. Castle on the hill',
-                duration: '4:22'
-            },
-        ],
-        showArr: [
-            {
-                name: "Sher Aaya Sher",
-                img: "../images/GullyBoy.jpg",
-                info: 'DIVINE, Major C. Gully Boy',
-                duration: '2:14'
-            },
-            {
-                name: "Castle on the hill",
-                img: "../images/GullyBoy.jpg",
-                info: 'Castle on the hill. Castle on the hill',
-                duration: '4:22'
-            },
-        ],
+        TTofAllTime: [],
+        TTofSixMonths: [],
+        TTofFourWeeks: [],
+        showArr: [],
         show: 'allTime'
     },
     reducers: {
-        updateTTofAllTime: (state, action) => {
-            state.TTofAllTime = action.payload
-        },
-        updateTTofSixMonths: (state, action) => {
-            state.TTofSixMonths = action.payload
-        },
-        updateTTofFourWeeks: (state, action) => {
-            state.TTofFourWeeks = action.payload
+        updateTopTracks: (state, action) => {
+            if (action.payload.save === 'allTime') {
+                state.TTofAllTime = action.payload.arr
+                console.log(state.TTofAllTime)
+            }
+            if (action.payload.save === 'sixMonth') {
+                state.TTofSixMonths = action.payload.arr
+                console.log(state.TTofSixMonths)
+            }
+            if (action.payload.save === 'FourWeeks') {
+                state.TTofFourWeeks = action.payload.arr
+                console.log(state.TTofFourWeeks)
+            }
         },
         show: (state, action) => {
             console.log(action.payload)
@@ -74,4 +39,4 @@ let TopTracks = createSlice({
 })
 
 export default TopTracks.reducer
-export const { updateTTofALlTime, updateTTofSixMonths, updateTTofFourWeeks, show } = TopTracks.actions
+export const { updateTopTracks, show } = TopTracks.actions
