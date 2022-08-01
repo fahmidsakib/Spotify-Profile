@@ -1,16 +1,15 @@
 import { useSelector } from "react-redux/es/exports"
 import { useEffect, useState } from 'react';
-import { updateUser } from "../Slices/UserSlice";
+import { updateUser, updateToken, updateFollowing } from "../Slices/UserSlice";
 import { updateTopTracks } from "../Slices/TopTracks";
 import { useDispatch } from "react-redux";
-import { updateToken } from "../Slices/UserSlice";
 import { updateShowArr } from "../Slices/MyPlaylists";
 export default function Profile() {
     let { showMyPlaylists } = useSelector(state => state.myPlaylists)
     let { showArr } = useSelector(state => state.topTracks)
     console.log(showArr)
     let tracks = showArr.slice(0, 5)
-    console.log(tracks,'dskfsfsfj')
+    console.log(tracks, 'dskfsfsfj')
     let dispatch = useDispatch();
 
     useEffect(() => {
@@ -29,7 +28,7 @@ export default function Profile() {
         getTopTrack(token1, 'medium_term', 'sixMonths')
         getTopTrack(token1, 'long_term', 'allTime')
         getFollowing(token1)
-        getTopArtist(token1)
+        // getTopArtist(token1)
         recentlyPlayed(token1)
     }, [])
 
@@ -68,6 +67,7 @@ export default function Profile() {
             .then((response) => response.json())
             .then((result) => {
                 console.log('Success:', result);
+                dispatch(updateFollowing(result.item.length))
             })
     }
 
@@ -128,7 +128,7 @@ export default function Profile() {
 
 
 
-    let { user } = useSelector(state => state.userSlice)
+    let { user, following } = useSelector(state => state.userSlice)
 
     console.log(user)
     return <div className="profile-page">
@@ -142,7 +142,7 @@ export default function Profile() {
                     <p style={{ fontSize: '14px' }}>FOLLOWERS</p>
                 </div>
                 <div>
-                    <p style={{ color: 'rgb(109, 240, 109)' }}>12</p>
+                    <p style={{ color: 'rgb(109, 240, 109)' }}>{following}</p>
                     <p style={{ fontSize: '14px' }}>FOLLOWINGS</p>
                 </div>
                 <div>
