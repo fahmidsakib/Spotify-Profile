@@ -128,14 +128,15 @@ a {
   gap: 20px;
 }
 
-.user-avatar>img {
-  width: 70px;
+.user-info>img {
+  width: 50px;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 100%;
+  padding: 5px;
+  border: 2px solid white;
 }
 
 .user-info .user-avatar {
-  border: 2px solid white;
   border-radius: 50%;
   /* padding: 10px 14px; */
 }

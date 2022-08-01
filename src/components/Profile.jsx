@@ -19,6 +19,7 @@ export default function Profile() {
         getData(token1);
         getPlaylist(token1);
         getTopTrack(token1)
+        getTopArtist(token1)
     }, [])
 
     let getPlaylist = (token) => {
@@ -43,18 +44,31 @@ export default function Profile() {
             .then((result) => {
                 console.log('Success:', result);
                 let obj = {}
-                obj.image = result.images[0].url
+                result.images.length === 0 ? obj.image = './images/profile2.png' : obj.image = result.images[0].url
                 obj.name = result.display_name;
                 obj.followers = result.followers.total
-                obj.img = result.images
                 dispatch(updateUser(obj))
-
             })
     }
 
 
     let getTopTrack = (token) => {
-        fetch("https://api.spotify.com/v1/me/top/tracks", { headers: { "Authorization": `Bearer ${token}` } })
+        fetch("https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=long_term", { headers: { "Authorization": `Bearer ${token}` } })
+            .then((response) => response.json())
+            .then((result) => {
+                console.log('TopTracks:', result);
+                // let obj = {}
+                // obj.image = result.images[0].url
+                // obj.name = result.display_name;
+                // obj.followers = result.followers.total
+                // obj.img = result.images
+                // dispatch(updateUser(obj))
+
+            })
+    }
+
+    let getTopArtist = (token) => {
+        fetch("https://api.spotify.com/v1/me/top/artists?limit=20&time_range=long_term", { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
                 console.log('TopTracks:', result);
@@ -70,24 +84,19 @@ export default function Profile() {
 
 
 
+    let {user} = useSelector(state => state.userSlice)
 
-
-
-
-
-
-    let user = useSelector(state => state.userSlice)
-
-    console.log(user.user)
+    console.log(user)
     return <div className="profile-page">
 
         <div className="user-info">
-            <div className="user-avatar">
-                <img src={user.user.image} alt="" /></div>
-            <h1>{user.user.name}</h1>
+            {/* <div className="user-avatar"> */}
+                <img src={user.image} alt="" />
+            {/* </div> */}
+            <h1>{user.name}</h1>
             <div className="followers-div">
                 <div>
-                    <p style={{ color: 'rgb(109, 240, 109)', fontWeight: '700' }}>{user.user.followers}</p>
+                    <p style={{ color: 'rgb(109, 240, 109)', fontWeight: '700' }}>{user.followers}</p>
                     <p style={{ fontSize: '14px' }}>FOLLOWERS</p>
                 </div>
                 <div>
