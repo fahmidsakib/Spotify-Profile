@@ -12,7 +12,7 @@ export default function Profile() {
     let tracks = showArr.slice(0, 5)
     let artists = useSelector(state => state.topArtists)
     console.log(artists, '   ')
-    artists = artists.showArr
+    artists = artists.showArr.slice(0,5)
 
     let dispatch = useDispatch();
 
@@ -177,22 +177,7 @@ export default function Profile() {
                 </div>
 
                 <div className="content1">
-                    {/* <div>
-                        <img src="../images/AtifAslam.jpg" alt="" />
-                        <p>Atif Aslam</p>
-                    </div>
-                    <div>
-                        <img src="../images/AtifAslam.jpg" alt="" />
-                        <p>Arijit Singh</p>
-                    </div>
-                    <div>
-                        <img src="../images/AtifAslam.jpg" alt="" />
-                        <p>Amit Trivedi</p>
-                    </div>
-                    <div>
-                        <img src="../images/AtifAslam.jpg" alt="" />
-                        <p>Rahat Fateh Ali Khan</p>
-                    </div> */}
+                   
                     {artists.map((el) => {
                         return <div>
                             <img src={el.image} alt="" />
