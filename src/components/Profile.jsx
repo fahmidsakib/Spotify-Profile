@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux/es/exports"
 import { useEffect, useState } from 'react';
 import { updateUser } from "../Slices/UserSlice";
+import { updateTopTracks } from "../Slices/TopTracks";
 import { useDispatch } from "react-redux";
 import { updateToken } from "../Slices/UserSlice";
 import { updateShowArr } from "../Slices/MyPlaylists";
@@ -20,7 +21,9 @@ export default function Profile() {
         dispatch(updateToken(token1))
         getData(token1);
         getPlaylist(token1);
-        getTopTrack(token1)
+        getTopTrack(token1, 'short_term', 'FourWeeks')
+        getTopTrack(token1, 'medium_term', 'sixMonths')
+        getTopTrack(token1, 'long_term', 'allTime')
         getTopArtist(token1)
         recentlyPlayed(token1)
     }, [])
@@ -58,18 +61,24 @@ export default function Profile() {
     }
 
 
-    let getTopTrack = (token) => {
-        fetch("https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=long_term", { headers: { "Authorization": `Bearer ${token}` } })
+    let getTopTrack = (token, range, type) => {
+        fetch(`https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=${range}`, { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
-                console.log('TopTracks:', result);
-                // let obj = {}
-                // obj.image = result.images[0].url
-                // obj.name = result.display_name;
-                // obj.followers = result.followers.total
-                // obj.img = result.images
-                // dispatch(updateUser(obj))
-
+                let tt = []
+                console.log('TopTracks:', result.items);
+                result.items.map(el => {
+                    let obj = {}
+                    obj.name = el.name
+                    el.artists.length >= 2 ? obj.artist = `${el.artists[0].name}, ${el.artists[1].name} · ${el.album.name}`
+                        : obj.artist = `${el.artists[0].name} · ${el.album.name}`
+                    let min = Math.floor((el.duration_ms / 1000 / 60) << 0)
+                    let sec = Math.floor((el.duration_ms / 1000) % 60)
+                    obj.duration = `${min}:${sec}`
+                    obj.image = el.album.images[0].url
+                    return tt.push(obj)
+                })
+                dispatch(updateTopTracks({ arr: tt, save: type }))
             })
     }
 
@@ -114,9 +123,7 @@ export default function Profile() {
     return <div className="profile-page">
 
         <div className="user-info">
-            {/* <div className="user-avatar"> */}
             <img src={user.image} alt="" />
-            {/* </div> */}
             <h1>{user.name}</h1>
             <div className="followers-div">
                 <div>

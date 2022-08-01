@@ -27,10 +27,10 @@ export default function TopTracks() {
                             showArr.map((el) => {
                                 return <div className="tt-song-info">
                                     <div className="tt-img-name">
-                                        <img src={el.img} alt="" />
+                                        <img src={el.image} alt="" />
                                         <div className="tt-song-name">
                                             <p>{el.name}</p>
-                                            <p style={{ fontSize: '12px', color: 'gray' }}>{el.info}</p>
+                                            <p style={{ fontSize: '12px', color: 'gray' }}>{el.artist}</p>
                                         </div>
                                     </div>
                                     <p style={{ fontSize: '12px', color: 'gray' }}>{el.duration}</p>
