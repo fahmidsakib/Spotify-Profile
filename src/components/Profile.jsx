@@ -201,7 +201,7 @@ export default function Profile() {
                 </div>
 
                 <div className="content2">
-                    {/* <div className="song-info">
+                    <div className="song-info">
                         <div>
                             <img src="../images/GullyBoy.jpg" alt="" />
                             <div className="song-name">
@@ -216,11 +216,12 @@ export default function Profile() {
                         <div>
                             <img src="../images/GullyBoy.jpg" alt="" />
                             <div className="song-name">
-                                <p style={{ fontSize: '12px', color: 'gray' }}>Castle on the hill. Castle on the hill</p>
+                            <p >gsdffsd sdfsf ssdf sfasfgadflgm la fdasl alskfjzzz</p>
+                                <p style={{ fontSize: '12px', color: 'gray' }}>Castle on the hill. Castle on the hill lorerererfsdfsfdfsfdsfdsfdsfffffsfsffdsfdfdsfds</p>
                             </div>
                         </div>
                         <p style={{ fontSize: '12px', color: 'gray' }}>4:22</p>
-                    </div> */}
+                    </div>
                     {
                         tracks.map((el) => {
                             return <div className="song-info">

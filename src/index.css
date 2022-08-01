@@ -128,14 +128,7 @@ a {
   gap: 20px;
 }
 
-.song-name {
-  width: 80%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: left;
-  text-overflow: ellipsis;
 
-}
 
 .user-info>img {
   width: 70px;
@@ -192,7 +185,7 @@ a {
 }
 
 .top-artists {
-  flex: 1;
+  width: 50%;
 }
 
 .top-artists .header {
@@ -222,7 +215,7 @@ a {
 }
 
 .top-tracks {
-  flex: 1;
+width: 50%;
 }
 
 .top-tracks .header2 {
@@ -245,6 +238,7 @@ a {
 
 
 .top-tracks .song-info {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -252,10 +246,19 @@ a {
 }
 
 .song-info>div {
+  width: 90%;
   display: flex;
   gap: 10px;
 }
 
+.song-name {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
+  text-overflow: ellipsis;
+
+}
 
 
 /* Artists page */
