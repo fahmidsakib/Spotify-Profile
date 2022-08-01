@@ -7,6 +7,10 @@ import { updateToken } from "../Slices/UserSlice";
 import { updateShowArr } from "../Slices/MyPlaylists";
 export default function Profile() {
     let { showMyPlaylists } = useSelector(state => state.myPlaylists)
+    let { showArr } = useSelector(state => state.topTracks)
+    console.log(showArr)
+    let tracks = showArr.slice(0, 5)
+    console.log(tracks,'dskfsfsfj')
     let dispatch = useDispatch();
 
     useEffect(() => {
@@ -170,7 +174,6 @@ export default function Profile() {
                         <p>Rahat Fateh Ali Khan</p>
                     </div>
 
-
                 </div>
 
 
@@ -187,7 +190,7 @@ export default function Profile() {
                 </div>
 
                 <div className="content2">
-                    <div className="song-info">
+                    {/* <div className="song-info">
                         <div>
                             <img src="../images/GullyBoy.jpg" alt="" />
                             <div className="song-name">
@@ -202,13 +205,25 @@ export default function Profile() {
                         <div>
                             <img src="../images/GullyBoy.jpg" alt="" />
                             <div className="song-name">
-                                <p>Castle on the hill</p>
                                 <p style={{ fontSize: '12px', color: 'gray' }}>Castle on the hill. Castle on the hill</p>
                             </div>
                         </div>
                         <p style={{ fontSize: '12px', color: 'gray' }}>4:22</p>
-                    </div>
-
+                    </div> */}
+                    {
+                        tracks.map((el) => {
+                            <div >
+                                <div >
+                                    <img src={el.image} alt="" />
+                                    <div >
+                                        <p>{el.name}</p>
+                                        <p style={{ fontSize: '12px', color: 'gray' }}>{el.artist}</p>
+                                    </div>
+                                </div>
+                                <p style={{ fontSize: '12px', color: 'gray' }}>{el.duration}</p>
+                            </div>
+                        })
+                    }
 
                 </div>
 
