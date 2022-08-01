@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { updateToken } from "../Slices/UserSlice";
 import { updateShowArr } from "../Slices/MyPlaylists";
 export default function Profile() {
+    let { showMyPlaylists } = useSelector(state => state.myPlaylists)
     let dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,6 +22,7 @@ export default function Profile() {
         getPlaylist(token1);
         getTopTrack(token1)
         getTopArtist(token1)
+        recentlyPlayed(token1)
     }, [])
 
     let getPlaylist = (token) => {
@@ -86,6 +88,24 @@ export default function Profile() {
             })
     }
 
+    let recentlyPlayed = (token) => {
+
+        fetch("https://api.spotify.com/v1/me/player/currently-playing", { headers: { "Authorization": `Bearer ${token}` } })
+            .then((response) => response.json())
+            .then((result) => {
+                console.log('curr', result);
+                // let obj = {}
+                // obj.image = result.images[0].url
+                // obj.name = result.display_name;
+                // obj.followers = result.followers.total
+                // obj.img = result.images
+                // dispatch(updateUser(obj))
+
+            })
+    }
+
+
+
 
 
     let { user } = useSelector(state => state.userSlice)
@@ -108,7 +128,7 @@ export default function Profile() {
                     <p style={{ fontSize: '14px' }}>FOLLOWINGS</p>
                 </div>
                 <div>
-                    <p style={{ color: 'rgb(109, 240, 109)' }}>3</p>
+                    <p style={{ color: 'rgb(109, 240, 109)' }}>{showMyPlaylists.length}</p>
                     <p style={{ fontSize: '14px' }}>PLAYLISTS</p>
                 </div>
             </div>
