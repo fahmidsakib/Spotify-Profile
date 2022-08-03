@@ -17,7 +17,7 @@ export default function RecentPlaylist() {
                     <div className="tt-content">
                         {
                             showRecent.map((el) => {
-                                return <div className="tt-song-info">
+                                return <div className="tt-song-info"  >
                                     <div className="tt-img-name">
                                         <img src={el.img} alt="" />
                                         <div className="tt-song-name">

@@ -7,7 +7,6 @@ export default function Artists() {
     let selected = topArtists.selected;
     let dispatch = useDispatch();
     let showArr = topArtists.showArr
-    // console.log(showArr)
 
     return <div className="Artists-page">
         <div className="artists-div">

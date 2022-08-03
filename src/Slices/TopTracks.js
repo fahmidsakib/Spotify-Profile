@@ -7,7 +7,8 @@ let TopTracks = createSlice({
         TTofSixMonths: [],
         TTofFourWeeks: [],
         showArr: [],
-        show: 'allTime'
+        show: 'allTime',
+        selected: 'allTime'
     },
     reducers: {
         updateTopTracks: (state, action) => {

@@ -3,14 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 let TopArtists = createSlice({
     name: 'topArtists-slice',
     initialState: {
-        TAofAllTime: [
-           
-
-        ], TAofSixMonths: [
-           
-        ], TAofFourWeeks: [
-            
-        ],
+        TAofAllTime: [ ], 
+        TAofSixMonths: [],
+         TAofFourWeeks: [],
         showArr:[],
         selected: "allTime"
 
@@ -20,7 +15,7 @@ let TopArtists = createSlice({
             if (action.payload.save === 'allTime') {
                 state.TAofAllTime = action.payload.arr
                 state.showArr = action.payload.arr
-                console.log('artist are saved')
+                console.log(state.showArr,'updated')
             }
             if (action.payload.save === 'sixMonth') {
                 state. TAofSixMonths = action.payload.arr

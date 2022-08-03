@@ -1,18 +1,19 @@
 import { useSelector } from "react-redux/es/exports"
 import { useEffect, useState } from 'react';
-import { updateUser, updateToken, updateFollowing } from "../Slices/UserSlice";
+import { updateUser, updateToken, updateFollowing, updateClicked } from "../Slices/UserSlice";
 import { updateTopTracks } from "../Slices/TopTracks";
 import { useDispatch } from "react-redux";
 import { updateShowArr } from "../Slices/MyPlaylists";
 import { updateTopArtists } from "../Slices/TopArtists";
 import { Link } from "react-router-dom";
+
 export default function Profile() {
     let { showMyPlaylists } = useSelector(state => state.myPlaylists)
-    let { showArr } = useSelector(state => state.topTracks)
-    let tracks = showArr.slice(0, 5)
+    let { TTofAllTime } = useSelector(state => state.topTracks)
+    let tracks = TTofAllTime.slice(0, 5)
     let artists = useSelector(state => state.topArtists)
-    console.log(artists, '   ')
-    artists = artists.showArr.slice(0,5)
+
+    artists = artists.TAofAllTime.slice(0, 5)
 
     let dispatch = useDispatch();
 
@@ -32,15 +33,33 @@ export default function Profile() {
         getTopTrack(token1, 'medium_term', 'sixMonths')
         getTopTrack(token1, 'long_term', 'allTime')
         getFollowing(token1, 'allTime')
-        // getTopArtist(token1)
-        recentlyPlayed(token1)
+        getTopArtist(token1, 'long_term', 'allTime')
+        getTopArtist(token1, 'medium_term', 'sixMonths')
+        getTopArtist(token1, 'short_term', 'FourWeeks')
+        // recentlyPlayed(token1)
     }, [])
+
+
+
+    let getData = (token) => {
+        fetch("https://api.spotify.com/v1/me", { headers: { "Authorization": `Bearer ${token}` } })
+            .then((response) => response.json())
+            .then((result) => {
+                let obj = {}
+                result.images.length === 0 ? obj.image = './images/profile2.png' : obj.image = result.images[0].url
+                obj.name = result.display_name;
+                obj.followers = result.followers.total
+                dispatch(updateUser(obj))
+            })
+    }
+
+
+
 
     let getPlaylist = (token) => {
         fetch("https://api.spotify.com/v1/me/playlists", { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
-                console.log('play:', result)
                 let arr = []
                 result.items.map((el) => {
                     let obj = {}
@@ -53,34 +72,13 @@ export default function Profile() {
             })
     }
 
-    let getData = (token) => {
-        fetch("https://api.spotify.com/v1/me", { headers: { "Authorization": `Bearer ${token}` } })
-            .then((response) => response.json())
-            .then((result) => {
-                console.log('Success:', result);
-                let obj = {}
-                result.images.length === 0 ? obj.image = './images/profile2.png' : obj.image = result.images[0].url
-                obj.name = result.display_name;
-                obj.followers = result.followers.total
-                dispatch(updateUser(obj))
-            })
-    }
+
 
     let getFollowing = (token, type) => {
         fetch("https://api.spotify.com/v1/me/following?type=artist", { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
-                console.log('playlist:', result);
                 dispatch(updateFollowing(result.artists.items.length))
-
-                let artistsArr = []
-                result.artists.items.map((el) => {
-                    let obj = {}
-                    obj.artistName = el.name
-                    obj.image = el.images[0].url
-                    artistsArr.push(obj)
-                })
-                dispatch(updateTopArtists({ arr: artistsArr, save: type }))
             })
     }
 
@@ -90,7 +88,6 @@ export default function Profile() {
             .then((response) => response.json())
             .then((result) => {
                 let tt = []
-                // console.log('TopTracks:', result.items);
                 result.items.map(el => {
                     let obj = {}
                     obj.name = el.name
@@ -106,17 +103,19 @@ export default function Profile() {
             })
     }
 
-    let getTopArtist = (token) => {
-        fetch("https://api.spotify.com/v1/me/top/artists?limit=20&time_range=long_term", { headers: { "Authorization": `Bearer ${token}` } })
+    let getTopArtist = (token, range, type) => {
+        fetch(`https://api.spotify.com/v1/me/top/artists?limit=20&time_range=${range}`, { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
                 console.log('TopArtist:', result);
-                // let obj = {}
-                // obj.image = result.images[0].url
-                // obj.name = result.display_name;
-                // obj.followers = result.followers.total
-                // obj.img = result.images
-                // dispatch(updateUser(obj))
+                let artistsArr = []
+                result.items.map((el) => {
+                    let obj = {}
+                    obj.artistName = el.name
+                    obj.image = el.images[0].url
+                    artistsArr.push(obj)
+                })
+                dispatch(updateTopArtists({ arr: artistsArr, save: type }))
 
             })
     }
@@ -126,13 +125,6 @@ export default function Profile() {
         fetch("https://api.spotify.com/v1/me/player/currently-playing", { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
-                console.log('curr', result);
-                // let obj = {}
-                // obj.image = result.images[0].url
-                // obj.name = result.display_name;
-                // obj.followers = result.followers.total
-                // obj.img = result.images
-                // dispatch(updateUser(obj))
 
             })
     }
@@ -143,7 +135,7 @@ export default function Profile() {
 
     let { user, following } = useSelector(state => state.userSlice)
 
-    console.log(user)
+
     return <div className="profile-page">
 
         <div className="user-info">
@@ -163,7 +155,8 @@ export default function Profile() {
                     <p style={{ fontSize: '14px' }}>PLAYLISTS</p>
                 </div>
             </div>
-            <button>LOGOUT</button>
+            <Link to={`/`} className="link"><button>LOGOUT</button></Link>
+
         </div>
 
 
@@ -173,11 +166,11 @@ export default function Profile() {
             <div className="top-artists">
                 <div className="header">
                     <h4>Top Artists of All Time</h4>
-                    <Link to={`/Artists`} className="link"><button> SEE MORE</button></Link>
+                    <Link to={`/Artists`} className="link"><button onClick={() => dispatch(updateClicked('artists'))}> SEE MORE</button></Link>
                 </div>
 
                 <div className="content1">
-                   
+
                     {artists.map((el) => {
                         return <div>
                             <img src={el.image} alt="" />
@@ -197,38 +190,18 @@ export default function Profile() {
             <div className="top-tracks">
                 <div className="header2">
                     <h4>Top Tracks of All Time</h4>
-                    <Link to={`/TopTracks`} className="link"><button> SEE MORE</button></Link>
+                    <Link to={`/TopTracks`} className="link"><button onClick={() => dispatch(updateClicked('track'))}> SEE MORE</button></Link>
                 </div>
 
                 <div className="content2">
-                    {/* <div className="song-info">
-                        <div>
-                            <img src="../images/GullyBoy.jpg" alt="" />
-                            <div className="song-name">
-                                <p>Sher Aaya Sher</p>
-                                <p style={{ fontSize: '12px', color: 'gray' }}>DIVINE, Major C. Gully Boy</p>
-                            </div>
-                        </div>
-                        <p style={{ fontSize: '12px', color: 'gray' }}>2:14</p>
-                    </div>
-
-                    <div className="song-info">
-                        <div>
-                            <img src="../images/GullyBoy.jpg" alt="" />
-                            <div className="song-name">
-                            <p >gsdffsd sdfsf ssdf sfasfgadflgm la fdasl alskfjzzz</p>
-                                <p style={{ fontSize: '12px', color: 'gray' }}>Castle on the hill. Castle on the hill lorerererfsdfsfdfsfdsfdsfdsfffffsfsffdsfdfdsfds</p>
-                            </div>
-                        </div>
-                        <p style={{ fontSize: '12px', color: 'gray' }}>4:22</p>
-                    </div> */}
                     {
+
                         tracks.map((el) => {
                             return <div className="song-info">
 
                                 <div >
                                     <img src={el.image} alt="" />
-                                    <div >
+                                    <div className="song-name-div">
                                         <p className="song-name">{el.name}</p>
                                         <p style={{ fontSize: '12px', color: 'gray' }} className="song-name">{el.artist}</p>
                                     </div>
