@@ -120,21 +120,17 @@ export default function Profile() {
             })
     }
 
-    let recentlyPlayed = (token) => {
+    // let recentlyPlayed = (token) => {
 
-        fetch("https://api.spotify.com/v1/me/player/currently-playing", { headers: { "Authorization": `Bearer ${token}` } })
-            .then((response) => response.json())
-            .then((result) => {
+    //     fetch("https://api.spotify.com/v1/me/player/currently-playing", { headers: { "Authorization": `Bearer ${token}` } })
+    //         .then((response) => response.json())
+    //         .then((result) => {
 
-            })
-    }
-
-
-
+    //         })
+    // }
 
 
     let { user, following } = useSelector(state => state.userSlice)
-
 
     return <div className="profile-page">
 
