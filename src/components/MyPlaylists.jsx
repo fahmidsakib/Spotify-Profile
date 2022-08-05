@@ -16,7 +16,7 @@ export default function MyPlaylists() {
                 <div className="mylist">
                     {
                         showMyPlaylists.map((el) => 
-                            <div className="list">
+                            <div className="list" >
                                 <img src={el.image} alt="" />
                                 <p className="list-name">{el.playlistName}</p>
                                 <p style={{ fontSize: '12px', color: 'gray' }}>{el.totalTracks} Tracks</p>

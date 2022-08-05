@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 let UserSlice = createSlice({
     name: 'user-slice',
-    initialState: { user: {}, token: '', following: 0 },
+    initialState: { user: {}, token: '', following: 0, clicked: 'profile' },
     reducers: {
         updateUser: (state, action) => {
             state.user = action.payload
@@ -14,8 +14,11 @@ let UserSlice = createSlice({
         updateFollowing: (state, action) => {
             state.following = action.payload
         },
+        updateClicked: (state, action) => {
+            state.clicked = action.payload
+        }
     }
 })
 
 export default UserSlice.reducer
-export const { updateUser, updateToken, updateFollowing } = UserSlice.actions
+export const { updateUser, updateToken, updateFollowing, updateClicked } = UserSlice.actions

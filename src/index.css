@@ -7,6 +7,10 @@
   font-family: 'Poppins', sans-serif;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .App {
   background-color: rgb(32, 30, 30);
   width: 100vw;
@@ -46,6 +50,7 @@ a {
   background-color: rgb(32, 30, 30);
   color: white;
   display: flex;
+  overflow: hidden;
 
 }
 
@@ -128,17 +133,11 @@ a {
   gap: 20px;
 }
 
-.song-name {
-  width: 80%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: left;
-  text-overflow: ellipsis;
 
-}
 
 .user-info>img {
   width: 70px;
+  height: 70px;
   object-fit: cover;
   border-radius: 100%;
   padding: 5px;
@@ -165,7 +164,7 @@ a {
   color: gray;
 }
 
-.user-info>button {
+.user-info button {
   background: transparent;
   color: white;
   border: 2px solid rgb(162, 162, 162);
@@ -192,7 +191,7 @@ a {
 }
 
 .top-artists {
-  flex: 1;
+  width: 50%;
 }
 
 .top-artists .header {
@@ -207,6 +206,7 @@ a {
   justify-content: center;
   gap: 10px;
   margin-top: 15px;
+  overflow-y: auto;
 }
 
 .content1 div {
@@ -222,7 +222,7 @@ a {
 }
 
 .top-tracks {
-  flex: 1;
+  width: 50%;
 }
 
 .top-tracks .header2 {
@@ -235,6 +235,7 @@ a {
   flex-direction: column;
   gap: 10px;
   margin-top: 15px;
+  overflow-y: auto;
 }
 
 .content2 img {
@@ -245,6 +246,7 @@ a {
 
 
 .top-tracks .song-info {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -252,10 +254,23 @@ a {
 }
 
 .song-info>div {
+  width: 85%;
   display: flex;
   gap: 10px;
 }
 
+.song-name-div {
+  width: 85%;
+}
+
+.song-name {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
+  text-overflow: ellipsis;
+
+}
 
 
 /* Artists page */
@@ -266,6 +281,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: auto;
 }
 
 .Artists-page .header {

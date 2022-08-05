@@ -25,7 +25,7 @@ export default function TopTracks() {
                     <div className="tt-content">
                         {
                             showArr.map((el) => {
-                                return <div className="tt-song-info">
+                                return <div className="tt-song-info" >
                                     <div className="tt-img-name">
                                         <img src={el.image} alt="" />
                                         <div className="tt-song-name">
