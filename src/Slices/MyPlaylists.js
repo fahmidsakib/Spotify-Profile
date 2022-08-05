@@ -8,7 +8,6 @@ let MyPlaylists = createSlice({
     reducers: {
         updateShowArr: (state, action) => {
             state.showMyPlaylists = action.payload
-           
         }
     }
 })

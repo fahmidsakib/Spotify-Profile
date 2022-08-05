@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux/es/exports"
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { updateUser, updateToken, updateFollowing, updateClicked } from "../Slices/UserSlice";
 import { updateTopTracks } from "../Slices/TopTracks";
 import { useDispatch } from "react-redux";

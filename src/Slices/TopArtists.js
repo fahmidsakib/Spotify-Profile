@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 let TopArtists = createSlice({
     name: 'topArtists-slice',
     initialState: {
-        TAofAllTime: [ ], 
+        TAofAllTime: [],
         TAofSixMonths: [],
-         TAofFourWeeks: [],
-        showArr:[],
+        TAofFourWeeks: [],
+        showArr: [],
         selected: "allTime"
 
     },
@@ -15,17 +15,16 @@ let TopArtists = createSlice({
             if (action.payload.save === 'allTime') {
                 state.TAofAllTime = action.payload.arr
                 state.showArr = action.payload.arr
-                console.log(state.showArr,'updated')
+                console.log(state.showArr, 'updated')
             }
             if (action.payload.save === 'sixMonth') {
-                state. TAofSixMonths = action.payload.arr
+                state.TAofSixMonths = action.payload.arr
             }
             if (action.payload.save === 'FourWeeks') {
                 state.TAofFourWeeks = action.payload.arr
             }
         },
         show: (state, action) => {
-            // console.log(action.payload)
             state.selected = action.payload
             if (state.selected === 'allTime') {
                 state.showArr = state.TAofAllTime;
@@ -39,24 +38,4 @@ let TopArtists = createSlice({
 })
 
 export default TopArtists.reducer
-export const {  updateTopArtists, show } = TopArtists.actions
-
-
-
-// { name: 'Nucleya', img: '../images/AtifAslam.jpg' },
-//             { name: 'Arijit Singh', img: '../images/AtifAslam.jpg' },
-//             { name: 'A.R. Rahman', img: '../images/AtifAslam.jpg' },
-//             { name: 'Sachin-jigar', img: '../images/AtifAslam.jpg' },
-//             { name: 'DIVINE', img: '../images/AtifAslam.jpg' }
-
-// { name: 'Nucleya', img: '../images/AtifAslam.jpg' },
-// { name: 'Arijit Singh', img: '../images/AtifAslam.jpg' },
-// { name: 'A.R. Rahman', img: '../images/AtifAslam.jpg' },
-// { name: 'Sachin-jigar', img: '../images/AtifAslam.jpg' },
-// { name: 'DIVINE', img: '../images/AtifAslam.jpg' }
-// { name: 'Nucleya', img: '../images/AtifAslam.jpg' },
-// { name: 'Arijit Singh', img: '../images/AtifAslam.jpg' },
-// { name: 'A.R. Rahman', img: '../images/AtifAslam.jpg' },
-// { name: 'Sachin-jigar', img: '../images/AtifAslam.jpg' },
-// { name: 'DIVINE', img: '../images/AtifAslam.jpg' },
-// { name: 'DIVINE', img: '../images/AtifAslam.jpg' }
+export const { updateTopArtists, show } = TopArtists.actions
