@@ -1,10 +1,10 @@
 function App() {
 
   const CLIENT_ID = "8063ebba207d4a1382ae4e548e408158"
-  const REDIRECT_URI = "http://localhost:3000/Profile"
+  const REDIRECT_URI = "https://spotify-profile-fahmid.vercel.app/Profile"
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"
-  const SCOPE = "user-follow-read playlist-read-private user-read-recently-played user-top-read user-read-currently-playing"
+  const SCOPE = "user-follow-read playlist-read-private user-read-recently-played user-top-read"
 
   return (
     <div className="App">
