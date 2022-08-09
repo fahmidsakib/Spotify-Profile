@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { updateShowArr } from "../Slices/MyPlaylists";
 import { updateTopArtists } from "../Slices/TopArtists";
 import { Link } from "react-router-dom";
+import { updateRecentPlaylist } from "../Slices/RecentPlaylists";
 
 export default function Profile() {
     let { showMyPlaylists } = useSelector(state => state.myPlaylists)
@@ -36,7 +37,8 @@ export default function Profile() {
         getTopArtist(token1, 'long_term', 'allTime')
         getTopArtist(token1, 'medium_term', 'sixMonths')
         getTopArtist(token1, 'short_term', 'FourWeeks')
-        // recentlyPlayed(token1)
+        recentlyPlayed(token1)
+        // eslint-disable-next-line
     }, [])
 
 
@@ -53,15 +55,12 @@ export default function Profile() {
             })
     }
 
-
-
-
     let getPlaylist = (token) => {
         fetch("https://api.spotify.com/v1/me/playlists", { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
                 let arr = []
-                result.items.map((el) => {
+                result.items.map((el) =>{
                     let obj = {}
                     obj.playlistName = el.name
                     obj.image = el.images[1].url
@@ -72,8 +71,6 @@ export default function Profile() {
             })
     }
 
-
-
     let getFollowing = (token, type) => {
         fetch("https://api.spotify.com/v1/me/following?type=artist", { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
@@ -81,7 +78,6 @@ export default function Profile() {
                 dispatch(updateFollowing(result.artists.items.length))
             })
     }
-
 
     let getTopTrack = (token, range, type) => {
         fetch(`https://api.spotify.com/v1/me/top/tracks?limit=20&time_range=${range}`, { headers: { "Authorization": `Bearer ${token}` } })
@@ -107,7 +103,6 @@ export default function Profile() {
         fetch(`https://api.spotify.com/v1/me/top/artists?limit=20&time_range=${range}`, { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => response.json())
             .then((result) => {
-                console.log('TopArtist:', result);
                 let artistsArr = []
                 result.items.map((el) => {
                     let obj = {}
@@ -120,14 +115,25 @@ export default function Profile() {
             })
     }
 
-    // let recentlyPlayed = (token) => {
-
-    //     fetch("https://api.spotify.com/v1/me/player/currently-playing", { headers: { "Authorization": `Bearer ${token}` } })
-    //         .then((response) => response.json())
-    //         .then((result) => {
-
-    //         })
-    // }
+    let recentlyPlayed = (token) => {
+        fetch("https://api.spotify.com/v1/me/player/recently-played?limit=20", { headers: { "Authorization": `Bearer ${token}` } })
+            .then((response) => response.json())
+            .then((result) => {
+                let recentlyPlayed = []
+                result.items.map(el => {
+                    let obj = {}
+                    obj.name = el.track.name
+                    el.track.artists.length >= 2 ? obj.artist = `${el.track.artists[0].name}, ${el.track.artists[1].name} · ${el.track.album.name}`
+                        : obj.artist = `${el.track.artists[0].name} · ${el.track.album.name}`
+                    let min = Math.floor((el.track.duration_ms / 1000 / 60) << 0)
+                    let sec = Math.floor((el.track.duration_ms / 1000) % 60)
+                    obj.duration = `${min}:${sec}`
+                    obj.image = el.track.album.images[0].url
+                    return recentlyPlayed.push(obj)
+                })
+                dispatch(updateRecentPlaylist(recentlyPlayed))
+            })
+    }
 
 
     let { user, following } = useSelector(state => state.userSlice)
@@ -152,49 +158,33 @@ export default function Profile() {
                 </div>
             </div>
             <Link to={`/`} className="link"><button>LOGOUT</button></Link>
-
         </div>
 
-
         <div className="bottom-div">
-
-
             <div className="top-artists">
                 <div className="header">
                     <h4>Top Artists of All Time</h4>
                     <Link to={`/Artists`} className="link"><button onClick={() => dispatch(updateClicked('artists'))}> SEE MORE</button></Link>
                 </div>
-
                 <div className="content1">
-
                     {artists.map((el) => {
                         return <div>
                             <img src={el.image} alt="" />
                             <p>{el.artistName}</p>
                         </div>
                     })}
-
                 </div>
-
-
-
             </div>
-
-
-
 
             <div className="top-tracks">
                 <div className="header2">
                     <h4>Top Tracks of All Time</h4>
                     <Link to={`/TopTracks`} className="link"><button onClick={() => dispatch(updateClicked('track'))}> SEE MORE</button></Link>
                 </div>
-
                 <div className="content2">
                     {
-
                         tracks.map((el) => {
                             return <div className="song-info">
-
                                 <div >
                                     <img src={el.image} alt="" />
                                     <div className="song-name-div">
@@ -206,12 +196,8 @@ export default function Profile() {
                             </div>
                         })
                     }
-
                 </div>
-
-
             </div>
         </div>
-
     </div >
 }

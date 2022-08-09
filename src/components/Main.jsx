@@ -19,7 +19,6 @@ export default function Main() {
                 <div className={clicked !== 'profile' ? "menu-item" : "menu-item clicked"} onClick={() => {
                     navigate('/Profile')
                     dispatch(updateClicked('profile'))
-
                 }}>
                     <img src="../images/profile.png" alt="" />
                     <p>Profile</p>
@@ -27,7 +26,6 @@ export default function Main() {
                 <div className={clicked !== 'artists' ? "menu-item" : "menu-item clicked"} onClick={() => {
                     navigate('/Artists')
                     dispatch(updateClicked('artists'))
-
                 }}>
                     <img src="../images/mic.png" alt="" />
                     <p>Top Artists</p>
@@ -54,10 +52,8 @@ export default function Main() {
                     Playlist
                 </div>
             </div>
-
-            <img src="../github.png" alt="" className="git-icon" />
+            <a href="https://github.com/fahmidsakib/Spotify-Profile" target="_blank"><img src="../github.png" alt="" className="git-icon" /></a>
         </div>
-
 
         <Routes>
             <Route path="/Profile" element={<Profile />} />

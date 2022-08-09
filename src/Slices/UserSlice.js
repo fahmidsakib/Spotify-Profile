@@ -6,7 +6,6 @@ let UserSlice = createSlice({
     reducers: {
         updateUser: (state, action) => {
             state.user = action.payload
-            console.log(state.user, 'yyyyy')
         },
         updateToken: (state, action) => {
             state.token = action.payload

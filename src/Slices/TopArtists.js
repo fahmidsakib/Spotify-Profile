@@ -15,7 +15,6 @@ let TopArtists = createSlice({
             if (action.payload.save === 'allTime') {
                 state.TAofAllTime = action.payload.arr
                 state.showArr = action.payload.arr
-                console.log(state.showArr, 'updated')
             }
             if (action.payload.save === 'sixMonth') {
                 state.TAofSixMonths = action.payload.arr

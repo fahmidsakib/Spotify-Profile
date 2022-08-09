@@ -4,7 +4,7 @@ function App() {
   const REDIRECT_URI = "http://localhost:3000/Profile"
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"
-  const SCOPE = "user-follow-read playlist-read-private user-read-recently-played user-top-read"
+  const SCOPE = "user-follow-read playlist-read-private user-read-recently-played user-top-read user-read-currently-playing"
 
   return (
     <div className="App">
